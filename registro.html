@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenis Master – Registro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
+    body {
+      background-image: url('fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .container-mx{max-width:1200px;margin:0 auto;}
+    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+    .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
+    .topbar{position:sticky;top:0;z-index:40;background:#ffffffcc;border-bottom:1px solid #e5e7eb}
+  </style>
+</head>
+<body class="bg-gray-50">
+<header class="topbar">
+  <div class="container-mx px-4 py-3">
+    <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-8 md:h-9 w-auto">
+  </div>
+</header>
+
+<main class="container-mx px-4 py-8">
+  <section class="max-w-md mx-auto space-y-6">
+    <div class="card p-6 space-y-4">
+      <div class="text-center space-y-1">
+        <h1 class="text-2xl font-semibold text-gray-900">Crear cuenta</h1>
+        <p class="text-gray-600 text-sm">Completar los datos para registrarse como jugador.</p>
+      </div>
+
+      <label class="block">
+        <span class="text-sm text-gray-700">Apellido</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder=" Tu apellido" />
+      </label>
+
+      <label class="block">
+        <span class="text-sm text-gray-700">Nombre</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder=" Tu nombre" />
+      </label>
+
+      <label class="block">
+        <span class="text-sm text-gray-700">DNI Nº</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" type="number" placeholder=" Ej. 40123456" />
+      </label>
+
+      <label class="block">
+        <span class="text-sm text-gray-700">Celular</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" type="tel" placeholder=" Ej. +54 9 11 5555-5555" />
+      </label>
+
+      <label class="block">
+        <span class="text-sm text-gray-700">Email</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" type="email" placeholder=" tu@correo.com" />
+      </label>
+
+      <label class="block">
+        <span class="text-sm text-gray-700">Contraseña</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" type="password" placeholder=" ********" />
+      </label>
+
+      <div class="flex justify-end">
+        <a class="btn-primary" href="index.html">Registrarme</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t">
+  <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
+    <span style="color:#d32f2f; background: #ffffffaa; padding:4px 12px; border-radius:6px;">
+      © RedSoft 2025. Todos los derechos reservados.
+    </span>
+  </div>
+</footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log('[REGISTRO] Script cargado correctamente.');
+
+    const btnRegistrar = document.querySelector('.btn-primary');
+    if (!btnRegistrar) return;
+
+    btnRegistrar.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      // Leer rol actual
+      const rolActual = localStorage.getItem('rol');
+      console.log('[REGISTRO] Rol actual:', rolActual);
+
+      // Si hay rol "Empleado", lo mantiene; si no hay rol, lo define como "Cliente"
+      if (!rolActual) {
+        localStorage.setItem('rol', 'Cliente');
+        console.log('[REGISTRO] Nuevo usuario → Rol asignado: Cliente');
+      } else if (rolActual === 'Empleado') {
+        console.log('[REGISTRO] Registrando nuevo cliente (rol empleado se mantiene)');
+      } else {
+        // Cualquier otro rol se conserva tal cual
+        console.log('[REGISTRO] Rol se mantiene como:', rolActual);
+      }
+
+      // Redirigir al index
+      window.location.href = 'index.html';
+    });
+  });
+</script>
+
+</body>
+</html>

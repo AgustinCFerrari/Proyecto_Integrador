@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenis Master - Pago</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
+    body {
+    background-image: url('cancha2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    }
+    .container-mx{max-width:1200px;margin:0 auto;}
+    .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
+    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+    .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
+    .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
+    .tag{background:#F3F4F6;color:#374151;border-radius:9999px;padding:.25rem .5rem;font-size:.75rem}
+    .topbar{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid #e5e7eb}
+    .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
+  </style>
+</head>
+
+<body class="bg-gray-50">
+<header class="topbar bg-blur">
+  <div class="container-mx px-4 py-3 flex items-center justify-between">
+    <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-9 w-auto" onerror="this.style.display='none'">
+    <button id="nav-toggle" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-gray-700" aria-expanded="false" aria-controls="nav-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      Menú
+    </button>
+    <nav id="nav-menu" class="hidden flex-col gap-8 bg-blur p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
+      <a href="index.html" class="hover:text-gray-900 px-2 py-1">Inicio</a>
+      <a href="reservar.html" class="hover:text-gray-900 px-2 py-1">Reservar</a>
+      <a href="mis-reservas.html" class="hover:text-gray-900 px-2 py-1">Mis reservas</a>
+      <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline px-2 py-1">Salir</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container-mx px-4 py-16">
+<h2 class="text-3xl font-semibold text-white text-center block mb-6">Pago</h2>
+<section class="max-w-3xl mx-auto">
+  <div class="card p-6 space-y-4">
+    <h2 class="text-lg font-semibold text-gray-900">Resumen</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
+      <div class="card p-4"><strong>Cancha:</strong> 2</div>
+      <div class="card p-4"><strong>Horario:</strong> 19:00–20:00</div>
+      <div class="card p-4"><strong>Importe:</strong> ARS 6.000</div>
+    </div>
+    <h3 class="text-base font-semibold text-gray-900 pt-2">Datos de pago</h3>
+    <label class="block">
+      <span class="text-sm text-gray-700">Método</span>
+      <select class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700">
+        <option>Tarjeta</option>
+        <option>Transferencia</option>
+        <option>Mercado Pago</option>
+      </select>
+    </label>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <label class="block">
+        <span class="text-sm text-gray-700">Titular</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder="Nombre y apellido"/>
+      </label>
+      <label class="block">
+        <span class="text-sm text-gray-700">Número de tarjeta</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder="XXXX XXXX XXXX XXXX"/>
+      </label>
+      <label class="block">
+        <span class="text-sm text-gray-700">Vencimiento</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder="MM/AA"/>
+      </label>
+      <label class="block">
+        <span class="text-sm text-gray-700">CVV</span>
+        <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder="***"/>
+      </label>
+    </div>
+    <div class="flex justify-end">
+      <a class="btn-primary" href="mis-reservas.html">Pagar y confirmar</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
+    <span style="color:#d32f2f; background:#ffffffaa; padding:4px 12px; border-radius:6px;">
+      © RedSoft 2025. Todos los derechos reservados.
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Mostrar solo "Panel de control" si el rol es Administrador
+  document.addEventListener('DOMContentLoaded', function(){
+    const userRol = localStorage.getItem('rol');
+    if(userRol === 'Administrador') {
+      const navMenu = document.getElementById('nav-menu');
+      // Elimina todas las opciones del nav
+      navMenu.innerHTML = '';
+      // Crea y agrega solo la opción Panel de control
+      const adminLink = document.createElement('a');
+      adminLink.href = 'admin-dashboard.html';
+      adminLink.className = 'hover:text-gray-900 px-4 py-2';
+      adminLink.textContent = 'Panel de control';
+      navMenu.appendChild(adminLink);
+    }
+  });
+  // Toggle menú móvil
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  btn.addEventListener('click', () => {
+    const isHidden = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(isHidden));
+  });
+  // Botón Salir
+  document.addEventListener('DOMContentLoaded', function(){
+    const logout = document.getElementById('logoutBtn');
+    if(logout){
+      logout.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem('rol');
+        window.location.replace('login.html');
+      });
+    }
+  });
+  // Redirigir botón "Continuar a pago" si es Administrador
+  document.addEventListener('DOMContentLoaded', function(){
+    const userRol = localStorage.getItem('rol');
+    const pagarBtn = document.querySelector('.btn-primary[href="mis-reservas.html"]');
+    if(userRol === 'Administrador' && pagarBtn) {
+      pagarBtn.setAttribute('href', 'admin-reservas.html');
+    }
+  });
+</script>
+
+</body>
+</html>

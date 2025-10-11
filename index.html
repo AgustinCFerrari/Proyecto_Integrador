@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenis Master – Panel de inicio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
+    body {
+      background-image: url('fondo3.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .container-mx{max-width:1200px;margin:0 auto;}
+    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+    .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;font-weight:600;}
+    .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;font-weight:600;}
+    .btn-primary, .btn-secondary {min-width: 140px; text-align: center; padding: .75rem 1rem; display: inline-block; }
+    .topbar{position:sticky;top:0;z-index:40;background:#ffffffcc;border-bottom:1px solid #e5e7eb}
+    .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
+     /* Evitar parpadeo: arrancar oculto y mostrar cuando haya sesión */
+    body { opacity: 0; transition: opacity .15s ease; }
+  </style>
+
+</head>
+<body class="bg-gray-50">
+<noscript>
+  <div style="background:#fee2e2;color:#991b1b;padding:12px;text-align:center;">
+    Necesitás activar JavaScript para usar esta página.
+  </div>
+</noscript>
+
+<header class="topbar bg-blur">
+  <div class="container-mx px-4 py-3 flex items-center justify-between">
+    <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-8 md:h-9 w-auto" onerror="this.style.display='none'">
+    <!-- (Opcional) badge de rol -->
+    <span class="text-xs text-center border rounded-full px-2 py-1">Usuario: <strong id="rolBadge"></strong></span>
+    <button id="nav-toggle" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-gray-700" aria-expanded="false" aria-controls="nav-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      Menú
+    </button>
+    <nav id="nav-menu" class="hidden flex-col gap-8 bg-blur p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
+      <!-- Botón visible SOLO para Empleado -->
+      <div class="flex items-center gap-4">
+        <div id="registerBtnContainer" class="hidden">
+          <a href="registro.html" class="hover:text-gray-900 px-2 py-1">Registrar cliente</a>
+        </div>
+        <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline px-2 py-1">Salir</a>
+      </div>
+    </nav>    
+  </div>
+</header>
+
+<main class="container-mx px-8 py-16">
+<h2 class="text-3xl font-semibold text-white text-center block mb-6">Panel de inicio</h2>
+<section class="grid gap-12 md:grid-cols-2">
+  <article class="card p-10">
+    <div class="flex items-start justify-between">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-900">Reservar cancha</h2>
+        <p class="text-gray-600">Elegí fecha, hora y cancha.</p>
+      </div>
+      <a class="btn-secondary" href="reservar.html">Reservar</a>
+    </div>
+  </article>
+  <article class="card p-10">
+    <div class="flex items-start justify-between">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-900">Matcheo de jugadores</h2>
+        <p class="text-gray-600">Encontrá rivales por nivel y disponibilidad.</p>
+      </div>
+      <a class="btn-secondary" href="macheo.html">Macheo</a>
+    </div>
+  </article>
+  <article class="card p-10">
+    <div class="flex items-start justify-between">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-900">Mis reservas</h2>
+        <p class="text-gray-600">Tu historial y próximas reservas.</p>
+      </div>
+      <a class="btn-secondary" href="mis-reservas.html">Ver</a>
+    </div>
+  </article>
+  <article class="card p-10">
+    <div class="flex items-center justify-between">
+      <p class="text-gray-900">¿Listo para jugar?</p>
+      <a class="btn-primary" href="reservar.html">Nueva reserva</a>
+    </div>
+  </article>
+</section>
+
+</main>
+
+<footer class="border-t">
+  <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
+    <span style="color:#d32f2f; background: #ffffffaa; padding:4px 12px; border-radius:6px;">
+      © RedSoft 2025. Todos los derechos reservados.
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Evitar parpadeo: mostrar sólo si hay sesión
+  (function(){
+    // Chequeo de sesión
+    try {
+      var rol = localStorage.getItem('rol');
+      console.log('[INDEX] Rol actual en localStorage:', rol);
+      if (!rol) {
+        // No hay sesión: ir a login
+        window.location.replace('login.html');
+      } else {
+        // Mostramos la página sin parpadeo
+        window.addEventListener('DOMContentLoaded', function(){
+          document.body.style.opacity = '1';
+          // Mostrar botón "Registrar cliente" sólo si es Empleado
+          var regWrap = document.getElementById('registerBtnContainer');
+          if (rol === 'Empleado' && regWrap) regWrap.classList.remove('hidden');
+          // (Opcional) Mostrar un saludo con el rol
+          var rolBadge = document.getElementById('rolBadge');
+          if (rolBadge) rolBadge.textContent = rol;
+        });
+      }
+    } catch (e) {
+      console.warn('Error leyendo localStorage:', e);
+      window.location.replace('login.html');
+    }
+  })();
+  // Mostrar el badge de rol si hay sesión
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log('JS cargado: OK');
+    const form = document.getElementById('loginForm');
+    const emailEl = document.getElementById('email');
+    const passEl  = document.getElementById('password');
+    const errorBox = document.getElementById('errorBox');
+
+    const validPassword = '1234';
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = (emailEl.value || '').trim().toLowerCase();
+      const pass  = passEl.value || '';
+
+      if (pass === validPassword) {
+        let rol = null;
+        let destino = null;
+
+        if (email === 'admin@mail.com') {
+          rol = 'Administrador';
+          destino = 'admin-dashboard.html';
+        } else if (email === 'usuario@mail.com') {
+          rol = 'Empleado';
+          destino = 'index.html';
+        } else if (email === 'cliente@mail.com') {
+          rol = 'Cliente';
+          destino = 'index.html';
+        }
+
+        if (rol && destino) {
+          localStorage.setItem('rol', rol);
+          console.log('Rol establecido:', rol);
+          window.location.href = destino;
+          return;
+        }
+      }
+
+      // Si no pasa ninguna validación, muestra el error
+      errorBox.classList.remove('hidden');
+      passEl.value = '';
+      passEl.focus();
+    });
+  });
+// Menú responsivo  
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  btn.addEventListener('click', () => {
+    const isHidden = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(isHidden));
+  });
+// Botón Salir
+  document.addEventListener('DOMContentLoaded', function(){
+    const logout = document.getElementById('logoutBtn');
+    if (logout) {
+      logout.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem('rol');
+        window.location.replace('login.html');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

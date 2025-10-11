@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenis Master - Reservar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
+    body {
+    background-image: url('cancha.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    }
+    .container-mx{max-width:1200px;margin:0 auto;}
+    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+    .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
+    .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
+    .tag{background:#F3F4F6;color:#374151;border-radius:9999px;padding:.25rem .5rem;font-size:.75rem}
+    .topbar{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid #e5e7eb}
+    .footer{border-top:1px solid #e5e7eb}
+    .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
+  </style>
+</head>
+
+<body class="bg-gray-50">
+<header class="topbar bg-blur">
+  <div class="container-mx px-4 py-3 flex items-center justify-between">
+    <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-9 w-auto" onerror="this.style.display='none'">
+    <button id="nav-toggle" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-gray-700" aria-expanded="false" aria-controls="nav-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      Menú
+    </button>
+    <nav id="nav-menu" class="hidden flex-col gap-8 bg-blur p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
+      <a href="index.html" class="hover:text-gray-900 px-2 py-1">Inicio</a>
+      <a href="mis-reservas.html" class="hover:text-gray-900 px-2 py-1">Mis reservas</a>
+      <a href="macheo.html" class="hover:text-gray-900 px-2 py-1">Macheo</a>
+      <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline px-2 py-1">Salir</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container-mx px-4 py-16">
+<h2 class="text-3xl font-semibold text-white text-center block mb-6">Reservar</h2>
+<section class="max-w-3xl mx-auto">
+  <div class="card p-6 space-y-4">
+    <h2 class="text-lg font-semibold text-gray-900">Datos de la reserva</h2>
+    <label class="block">
+      <span class="text-sm text-gray-700">Fecha</span>
+      <input type="date" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
+    </label>
+    <label class="block">
+      <span class="text-sm text-gray-700">Hora</span>
+      <input type="time" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
+    </label>
+    <label class="block">
+      <span class="text-sm text-gray-700">Cancha</span>
+      <select class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700">
+        <option>Cancha 1</option>
+        <option>Cancha 2</option>
+        <option>Cancha 3</option>
+        <option>Cancha 4</option>
+      </select>
+    </label>
+    <div class="card p-4 bg-gray-50">
+      <p class="text-gray-700"><span class="tag mr-2">Disponibilidad</span> Canchas libres hoy: 3</p>
+    </div>
+    <div class="flex justify-end">
+      <a class="btn-primary" href="pago.html">Continuar a pago</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
+    <span style="color:#d32f2f; background:#ffffffaa; padding:4px 12px; border-radius:6px;">
+      © RedSoft 2025. Todos los derechos reservados.
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Mostrar solo "Panel de control" si el rol es Administrador
+  document.addEventListener('DOMContentLoaded', function(){
+    const userRol = localStorage.getItem('rol');
+    if(userRol === 'Administrador') {
+      const navMenu = document.getElementById('nav-menu');
+      // Elimina todas las opciones del nav
+      navMenu.innerHTML = '';
+      // Crea y agrega solo la opción Panel de control
+      const adminLink = document.createElement('a');
+      adminLink.href = 'admin-dashboard.html';
+      adminLink.className = 'hover:text-gray-900 px-4 py-2';
+      adminLink.textContent = 'Panel de control';
+      navMenu.appendChild(adminLink);
+    }
+  });
+  // Botón de menú
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  btn.addEventListener('click', () => {
+    const isHidden = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(isHidden));
+  });
+  // Botón Salir
+  document.addEventListener('DOMContentLoaded', function(){
+    const logout = document.getElementById('logoutBtn');
+    if(logout){
+      logout.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem('rol');
+        window.location.replace('login.html');
+      });
+    }
+  });
+  // Cambiar enlace de "Continuar a pago" según rol
+  document.addEventListener('DOMContentLoaded', function(){
+    const userRol = localStorage.getItem('rol');
+    const pagarBtn = document.querySelector('.btn-primary[href="mis-reservas.html"]');
+    if(userRol === 'Administrador' && pagarBtn) {
+      pagarBtn.setAttribute('href', 'admin-reservas.html');
+    }
+  });
+</script>
+</body>
+</html>

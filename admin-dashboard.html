@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenis Master – Panel de control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+  html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
+  body {
+    background-image: url('fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  .container-mx{max-width:1200px;margin:0 auto;}
+  .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+  .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
+  .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
+  .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
+</style>
+</head>
+
+<header class="topbar bg-blur">
+  <div class="container-mx px-4 py-3 flex items-center justify-between">
+    <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-9 w-auto" onerror="this.style.display='none'">
+    <button id="nav-toggle" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-gray-700" aria-expanded="false" aria-controls="nav-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      Menú
+    </button>
+    <nav id="nav-menu" class="hidden flex-col gap-8 bg-blur p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
+      <a href="admin-calendario.html" class="hover:text-gray-900 px-2 py-1">Calendario</a>
+      <a href="admin-reportes.html" class="hover:text-gray-900 px-2 py-1">Reportes</a>
+      <a href="admin-reservas.html" class="hover:text-gray-900 px-2 py-1">Reservas</a>
+      <a href="admin-usuarios.html" class="hover:text-gray-900 px-2 py-1">Usuarios</a>
+      <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline px-2 py-1">Salir</a>
+    </nav>
+  </div>
+</header>
+
+
+<main class="container-mx px-4 py-16">
+  <h2 class="text-3xl font-semibold text-gray-900 text-center block mb-6">Panel Administrador</h2>
+  <section class="grid gap-6 md:grid-cols-3">
+    <div class="card p-6">
+      <h3 class="font-semibold text-gray-900">Ocupación hoy</h3>
+      <p class="text-gray-700 mt-2">75% · 3/4 canchas</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-semibold text-gray-900">Ingresos hoy</h3>
+      <p class="text-gray-700 mt-2">ARS 42.000</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="font-semibold text-gray-900">Próximos turnos</h3>
+      <p class="text-gray-700 mt-2">18:00 C1 · 19:00 C2 · 20:00 C3</p>
+    </div>
+    <div class="card p-6 md:col-span-3">
+      <h3 class="font-semibold text-gray-900">Actividad reciente</h3>
+      <p class="text-gray-600 mt-2">Reservas, cancelaciones y pagos.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
+    <span style="color:#d32f2f; background: #ffffffaa; padding:4px 12px; border-radius:6px;">
+      © RedSoft 2025. Todos los derechos reservados.
+    </span>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  if(btn && menu){
+    btn.addEventListener('click', () => {
+      const isHidden = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(isHidden));
+    });
+  }
+  // Botón Salir
+  document.addEventListener('DOMContentLoaded', function(){
+    const logout = document.getElementById('logoutBtn');
+    if(logout){
+      logout.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem('rol');
+        window.location.replace('login.html');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

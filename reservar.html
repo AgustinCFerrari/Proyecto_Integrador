@@ -11,11 +11,11 @@
   <style>
     html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
     body {
-    background-image: url('cancha.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+      background-image: url('cancha.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
     .container-mx{max-width:1200px;margin:0 auto;}
     .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
@@ -48,37 +48,50 @@
 </header>
 
 <main class="container-mx px-4 py-16">
-<h2 class="text-3xl font-semibold text-white text-center block mb-6">Reservar</h2>
-<section class="max-w-3xl mx-auto">
-  <div class="card p-6 space-y-4">
-    <h2 class="text-lg font-semibold text-gray-900">Datos de la reserva</h2>
-    <label class="block">
-      <span class="text-sm text-gray-700">Fecha</span>
-      <input type="date" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
-    </label>
-    <label class="block">
-      <span class="text-sm text-gray-700">Hora</span>
-      <input type="time" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
-    </label>
-    <label class="block">
-      <span class="text-sm text-gray-700">Cancha</span>
-      <select class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700">
-        <option>Cancha 1</option>
-        <option>Cancha 2</option>
-        <option>Cancha 3</option>
-        <option>Cancha 4</option>
-      </select>
-    </label>
-    <div class="card p-4 bg-gray-50">
-      <p class="text-gray-700"><span class="tag mr-2">Disponibilidad</span> Canchas libres hoy: 3</p>
-    </div>
-    <div class="flex justify-end">
-      <a class="btn-primary" href="pago.html">Continuar a pago</a>
-    </div>
-  </div>
-</section>
+  <h2 class="text-3xl font-semibold text-white text-center block mb-6">Reservar</h2>
+  <section class="max-w-3xl mx-auto">
+    <div class="card p-6 space-y-4">
+      <h2 class="text-lg font-semibold text-gray-900">Datos de la reserva</h2>
 
+      <label class="block">
+        <span class="text-sm text-gray-700">Fecha</span>
+        <input type="date" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
+      </label>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <label class="block">
+          <span class="text-sm text-gray-700">Hora inicio</span>
+          <input id="horaInicio" type="time" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
+        </label>
+
+        <!-- NUEVO: Hora fin -->
+        <label class="block">
+          <span class="text-sm text-gray-700">Hora fin</span>
+          <input id="horaFin" type="time" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="text-sm text-gray-700">Cancha</span>
+        <select class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700">
+          <option>Cancha 1</option>
+          <option>Cancha 2</option>
+          <option>Cancha 3</option>
+          <option>Cancha 4</option>
+        </select>
+      </label>
+
+      <div class="card p-4 bg-gray-50">
+        <p class="text-gray-700"><span class="tag mr-2">Disponibilidad</span> Canchas libres hoy: 3</p>
+      </div>
+
+      <div class="flex justify-end">
+        <a class="btn-primary" href="pago.html">Continuar a pago</a>
+      </div>
+    </div>
+  </section>
 </main>
+
 <footer class="footer">
   <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
     <span style="color:#d32f2f; background:#ffffffaa; padding:4px 12px; border-radius:6px;">
@@ -93,9 +106,7 @@
     const userRol = localStorage.getItem('rol');
     if(userRol === 'Administrador') {
       const navMenu = document.getElementById('nav-menu');
-      // Elimina todas las opciones del nav
       navMenu.innerHTML = '';
-      // Crea y agrega solo la opción Panel de control
       const adminLink = document.createElement('a');
       adminLink.href = 'admin-dashboard.html';
       adminLink.className = 'hover:text-gray-900 px-4 py-2';
@@ -103,7 +114,8 @@
       navMenu.appendChild(adminLink);
     }
   });
-  // Botón de menú
+
+  // Botón de menú (mobile)
   const btn = document.getElementById('nav-toggle');
   const menu = document.getElementById('nav-menu');
   btn.addEventListener('click', () => {
@@ -111,6 +123,7 @@
     menu.classList.toggle('hidden');
     btn.setAttribute('aria-expanded', String(isHidden));
   });
+
   // Botón Salir
   document.addEventListener('DOMContentLoaded', function(){
     const logout = document.getElementById('logoutBtn');
@@ -122,7 +135,39 @@
       });
     }
   });
-  // Cambiar enlace de "Continuar a pago" según rol
+
+  // Sugerir Hora fin (+1h) cuando se elige Hora inicio
+  document.addEventListener('DOMContentLoaded', function(){
+    const hIni = document.getElementById('horaInicio');
+    const hFin = document.getElementById('horaFin');
+
+    function addOneHour(hhmm) {
+      if(!hhmm) return '';
+      const [hh, mm] = hhmm.split(':').map(Number);
+      const d = new Date(2000,0,1, hh, mm || 0, 0, 0);
+      d.setHours(d.getHours() + 1);
+      const H = String(d.getHours()).padStart(2,'0');
+      const M = String(d.getMinutes()).padStart(2,'0');
+      return `${H}:${M}`;
+    }
+
+    if (hIni && hFin) {
+      hIni.addEventListener('change', () => {
+        const suggested = addOneHour(hIni.value);
+        if (suggested) hFin.value = suggested;
+      });
+
+      // Validación simple: fin no puede ser menor a inicio
+      hFin.addEventListener('change', () => {
+        if (hIni.value && hFin.value && hFin.value <= hIni.value) {
+          // si el usuario pone una hora fin menor/igual, sugerimos +1h
+          hFin.value = addOneHour(hIni.value);
+        }
+      });
+    }
+  });
+
+  // Cambiar enlace de "Continuar a pago" según rol (en esta página apunta a pago.html)
   document.addEventListener('DOMContentLoaded', function(){
     const userRol = localStorage.getItem('rol');
     const pagarBtn = document.querySelector('.btn-primary[href="mis-reservas.html"]');

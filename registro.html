@@ -32,7 +32,7 @@
     <div class="card p-6 space-y-4">
       <div class="text-center space-y-1">
         <h1 class="text-2xl font-semibold text-gray-900">Crear cuenta</h1>
-        <p class="text-gray-600 text-sm">Completar los datos para registrarse como jugador.</p>
+        <p class="text-gray-600 text-sm">Completar los datos del jugador.</p>
       </div>
 
       <label class="block">
@@ -65,8 +65,18 @@
         <input class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" type="password" placeholder=" ********" />
       </label>
 
+      <label class="block">
+        <span class="text-sm text-gray-700">Nivel del jugador</span>
+        <select class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700 bg-white">
+          <option value="">Seleccionar nivel</option>
+          <option value="inicial">Inicial</option>
+          <option value="intermedio">Intermedio</option>
+          <option value="avanzado">Avanzado</option>
+        </select>
+      </label>
+  
       <div class="flex justify-end">
-        <a class="btn-primary" href="index.html">Registrarme</a>
+        <a class="btn-primary" href="index.html">Registrar</a>
       </div>
     </div>
   </section>
@@ -79,6 +89,7 @@
     </span>
   </div>
 </footer>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     console.log('[REGISTRO] Script cargado correctamente.');
@@ -89,22 +100,18 @@
     btnRegistrar.addEventListener('click', function (e) {
       e.preventDefault();
 
-      // Leer rol actual
       const rolActual = localStorage.getItem('rol');
       console.log('[REGISTRO] Rol actual:', rolActual);
 
-      // Si hay rol "Empleado", lo mantiene; si no hay rol, lo define como "Cliente"
       if (!rolActual) {
         localStorage.setItem('rol', 'Cliente');
         console.log('[REGISTRO] Nuevo usuario → Rol asignado: Cliente');
       } else if (rolActual === 'Empleado') {
         console.log('[REGISTRO] Registrando nuevo cliente (rol empleado se mantiene)');
       } else {
-        // Cualquier otro rol se conserva tal cual
         console.log('[REGISTRO] Rol se mantiene como:', rolActual);
       }
 
-      // Redirigir al index
       window.location.href = 'index.html';
     });
   });

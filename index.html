@@ -18,13 +18,13 @@
     .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
     .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;font-weight:600;}
     .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;font-weight:600;}
-    .btn-primary, .btn-secondary {min-width: 140px; text-align: center; padding: .75rem 1rem; display: inline-block; }
+    .btn-primary, .btn-secondary {min-width: 100px; text-align: center; padding: .75rem 1rem; display: inline-block; }
     .topbar{position:sticky;top:0;z-index:40;background:#ffffffcc;border-bottom:1px solid #e5e7eb}
     .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
      /* Evitar parpadeo: arrancar oculto y mostrar cuando haya sesión */
     body { opacity: 0; transition: opacity .15s ease; }
+    section.grid > article.card { max-width: 500px; margin: 0 2rem auto; padding: 1.5rem 2rem; box-sizing: border-box; }
   </style>
-
 </head>
 <body class="bg-gray-50">
 <noscript>
@@ -58,38 +58,32 @@
 
 <main class="container-mx px-8 py-16">
 <h2 class="text-3xl font-semibold text-white text-center block mb-6">Panel de inicio</h2>
-<section class="grid gap-12 md:grid-cols-2">
-  <article class="card p-10">
+<section class="grid gap-12 justify-items-center">
+  <article class="card w-full max-w-[550px] p-8 md:p-6">
     <div class="flex items-start justify-between">
       <div>
         <h2 class="text-lg font-semibold text-gray-900">Reservar cancha</h2>
-        <p class="text-gray-600">Elegí fecha, hora y cancha.</p>
+        <p class="text-gray-600">Elegir fecha, hora y cancha.</p>
       </div>
       <a class="btn-secondary" href="reservar.html">Reservar</a>
     </div>
   </article>
-  <article class="card p-10">
+  <article class="card w-full max-w-[550px] p-8 md:p-6">
     <div class="flex items-start justify-between">
       <div>
-        <h2 class="text-lg font-semibold text-gray-900">Matcheo de jugadores</h2>
-        <p class="text-gray-600">Encontrá rivales por nivel y disponibilidad.</p>
+        <h2 class="text-lg font-semibold text-gray-900">Macheo de jugadores</h2>
+        <p class="text-gray-600">Por nivel y disponibilidad.</p>
       </div>
       <a class="btn-secondary" href="macheo.html">Macheo</a>
     </div>
   </article>
-  <article class="card p-10">
+  <article class="card w-full max-w-[550px] p-8 md:p-6">
     <div class="flex items-start justify-between">
       <div>
         <h2 class="text-lg font-semibold text-gray-900">Mis reservas</h2>
-        <p class="text-gray-600">Tu historial y próximas reservas.</p>
+        <p class="text-gray-600">Ver historial y próximas reservas.</p>
       </div>
       <a class="btn-secondary" href="mis-reservas.html">Ver</a>
-    </div>
-  </article>
-  <article class="card p-10">
-    <div class="flex items-center justify-between">
-      <p class="text-gray-900">¿Listo para jugar?</p>
-      <a class="btn-primary" href="reservar.html">Nueva reserva</a>
     </div>
   </article>
 </section>

@@ -112,6 +112,7 @@
       // Botón Salir
   document.addEventListener('DOMContentLoaded', function(){
     const logout = document.getElementById('logoutBtn');
+    localStorage.removeItem('bookingUserEmail');
     if(logout){
       logout.addEventListener('click', function(e){
         e.preventDefault();

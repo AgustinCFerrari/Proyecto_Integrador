@@ -47,27 +47,6 @@
   </div>
 </header>
 
-<script>
-  const btn = document.getElementById('nav-toggle');
-  const menu = document.getElementById('nav-menu');
-  btn.addEventListener('click', () => {
-    const isHidden = menu.classList.contains('hidden');
-    menu.classList.toggle('hidden');
-    btn.setAttribute('aria-expanded', String(isHidden));
-  });
-  // Botón Salir
-  document.addEventListener('DOMContentLoaded', function(){
-    const logout = document.getElementById('logoutBtn');
-    if(logout){
-      logout.addEventListener('click', function(e){
-        e.preventDefault();
-        localStorage.removeItem('rol');
-        window.location.replace('login.html');
-      });
-    }
-  });
-</script>
-
 <main class="container-mx px-4 py-16">
 <h2 class="text-3xl font-semibold text-gray-900 text-center block mb-6">Reservas</h2>
 <section class="card p-6">
@@ -106,5 +85,26 @@
     </span>
   </div>
 </footer>
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  btn.addEventListener('click', () => {
+    const isHidden = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(isHidden));
+  });
+  // Botón Salir
+  document.addEventListener('DOMContentLoaded', function(){
+    const logout = document.getElementById('logoutBtn');
+    localStorage.removeItem('bookingUserEmail');
+    if(logout){
+      logout.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem('rol');
+        window.location.replace('login.html');
+      });
+    }
+  });
+</script>
 </body>
 </html>

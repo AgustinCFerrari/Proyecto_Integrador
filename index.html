@@ -36,7 +36,6 @@
 <header class="topbar bg-blur">
   <div class="container-mx px-4 py-3 flex items-center justify-between">
     <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-8 md:h-9 w-auto" onerror="this.style.display='none'">
-    <!-- (Opcional) badge de rol -->
     <span class="text-xs text-center border rounded-full px-2 py-1">Usuario: <strong id="rolBadge"></strong></span>
     <button id="nav-toggle" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-gray-700" aria-expanded="false" aria-controls="nav-menu">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,7 +82,7 @@
         <h2 class="text-lg font-semibold text-gray-900">Mis reservas</h2>
         <p class="text-gray-600">Ver historial y próximas reservas.</p>
       </div>
-      <a class="btn-secondary" href="mis-reservas.html">Ver</a>
+      <a class="btn-secondary" href="panel-reservas.html">Ver</a>
     </div>
   </article>
 </section>
@@ -180,6 +179,7 @@
 // Botón Salir
   document.addEventListener('DOMContentLoaded', function(){
     const logout = document.getElementById('logoutBtn');
+    localStorage.removeItem('bookingUserEmail');
     if (logout) {
       logout.addEventListener('click', function(e){
         e.preventDefault();

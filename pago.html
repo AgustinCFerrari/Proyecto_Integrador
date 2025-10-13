@@ -41,7 +41,7 @@
     <nav id="nav-menu" class="hidden flex-col gap-8 bg-blur p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
       <a href="index.html" class="hover:text-gray-900 px-2 py-1">Inicio</a>
       <a href="reservar.html" class="hover:text-gray-900 px-2 py-1">Reservar</a>
-      <a href="mis-reservas.html" class="hover:text-gray-900 px-2 py-1">Mis reservas</a>
+      <a href="panel-reservas.html" class="hover:text-gray-900 px-2 py-1">Reservas</a>
       <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline px-2 py-1">Salir</a>
     </nav>
   </div>
@@ -52,6 +52,12 @@
 <section class="max-w-3xl mx-auto">
   <div class="card p-6 space-y-4">
     <h2 class="text-lg font-semibold text-gray-900">Resumen</h2>
+    <div class="block">
+      <label class="block">
+        <span class="text-sm text-gray-700">Cliente</span>
+        <input id="userEmail" type="email" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder="cliente@mail.com" />
+      </label>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
       <div class="card p-4"><strong>Cancha:</strong> 3</div>
       <div class="card p-4"><strong>Horario:</strong> 19:00–20:00</div>
@@ -85,7 +91,7 @@
       </label>
     </div>
     <div class="flex justify-end">
-      <a class="btn-primary" href="mis-reservas.html">Pagar y confirmar</a>
+      <a class="btn-primary" href="panel-reservas.html">Pagar y confirmar</a>
     </div>
   </div>
 </section>
@@ -126,12 +132,27 @@
   // Botón Salir
   document.addEventListener('DOMContentLoaded', function(){
     const logout = document.getElementById('logoutBtn');
+    localStorage.removeItem('bookingUserEmail');
     if(logout){
       logout.addEventListener('click', function(e){
         e.preventDefault();
         localStorage.removeItem('rol');
         window.location.replace('login.html');
       });
+    }
+  });
+  // Recupera el correo guardado en el paso anterior y lo muestra en pago.html
+  document.addEventListener('DOMContentLoaded', function () {
+    const emailInput = document.getElementById('userEmail');
+    if (!emailInput) return;
+
+    const saved = localStorage.getItem('bookingUserEmail');
+    if (saved) {
+      emailInput.value = saved;
+    } else {
+      // Fallback por rol, por si no había nada guardado
+      const rol = localStorage.getItem('rol');
+      if (rol === 'Cliente')        emailInput.value = 'cliente@mail.com';
     }
   });
   // Redirigir botón "Continuar a pago" si es Administrador

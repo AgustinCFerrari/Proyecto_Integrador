@@ -40,7 +40,7 @@
     </button>
     <nav id="nav-menu" class="hidden flex-col gap-8 bg-blur p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
       <a href="index.html" class="hover:text-gray-900 px-2 py-1">Inicio</a>
-      <a href="mis-reservas.html" class="hover:text-gray-900 px-2 py-1">Mis reservas</a>
+      <a href="panel-reservas.html" class="hover:text-gray-900 px-2 py-1">Reservas</a>
       <a href="macheo.html" class="hover:text-gray-900 px-2 py-1">Macheo</a>
       <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline px-2 py-1">Salir</a>
     </nav>
@@ -50,8 +50,16 @@
 <main class="container-mx px-4 py-16">
   <h2 class="text-3xl font-semibold text-white text-center block mb-6">Reservar</h2>
   <section class="max-w-3xl mx-auto">
+
     <div class="card p-6 space-y-4">
       <h2 class="text-lg font-semibold text-gray-900">Datos de la reserva</h2>
+
+    <div class="block">
+      <label class="block">
+        <span class="text-sm text-gray-700">Jugador (correo electrónico)</span>
+        <input id="userEmail" type="email" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700" placeholder="cliente@mail.com" />
+      </label>
+    </div>
 
       <label class="block">
         <span class="text-sm text-gray-700">Fecha</span>
@@ -64,7 +72,6 @@
           <input id="horaInicio" type="time" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
         </label>
 
-        <!-- NUEVO: Hora fin -->
         <label class="block">
           <span class="text-sm text-gray-700">Hora fin</span>
           <input id="horaFin" type="time" class="mt-1 w-full rounded-lg border-gray-300 focus:ring-green-700 focus:border-green-700"/>
@@ -127,6 +134,7 @@
   // Botón Salir
   document.addEventListener('DOMContentLoaded', function(){
     const logout = document.getElementById('logoutBtn');
+    localStorage.removeItem('bookingUserEmail');
     if(logout){
       logout.addEventListener('click', function(e){
         e.preventDefault();
@@ -175,6 +183,49 @@
       pagarBtn.setAttribute('href', 'admin-reservas.html');
     }
   });
+  // Mostrar y configurar el campo de usuario según el rol
+  document.addEventListener('DOMContentLoaded', function() {
+    const userEmailInput = document.getElementById('userEmail');
+    const userRol = localStorage.getItem('rol');
+    let userEmail = '';
+    if (userEmailInput) {
+      userEmailInput.value = userEmail;
+
+      // Si el rol es Cliente → campo de solo lectura
+      if (userRol === 'Cliente') {
+        userEmailInput.readOnly = true;
+        userEmailInput.classList.add('bg-gray-100');
+      } else {
+        // Si es Empleado o Administrador → editable
+        userEmailInput.readOnly = false;
+        userEmailInput.classList.remove('bg-gray-100');
+        userEmailInput.classList.add('bg-white');
+      }
+    }
+  });
+  // Guarda el mail del jugador al escribirlo y antes de ir a pago
+  document.addEventListener('DOMContentLoaded', function () {
+    const emailInput = document.getElementById('userEmail');
+    const continuarPago = document.querySelector('a.btn-primary[href="pago.html"]');
+
+    if (emailInput) {
+      const saved = localStorage.getItem('bookingUserEmail');
+      if (saved && !emailInput.value) emailInput.value = saved;
+
+      emailInput.addEventListener('input', () => {
+        localStorage.setItem('bookingUserEmail', emailInput.value.trim());
+      });
+    }
+
+    if (continuarPago) {
+      continuarPago.addEventListener('click', function (e) {
+        if (emailInput && emailInput.value) {
+          localStorage.setItem('bookingUserEmail', emailInput.value.trim());
+        }
+      });
+    }
+  });
+
 </script>
 </body>
 </html>

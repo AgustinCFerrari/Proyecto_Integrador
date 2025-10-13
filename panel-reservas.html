@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenis Master – Panel de reservas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
+    body {
+      background-image: url('fondo2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .container-mx{max-width:1200px;margin:0 auto;}
+    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+    .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block;}
+    .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block;}
+    .topbar{position:sticky;top:0;z-index:40;background:#ffffffcc;border-bottom:1px solid #e5e7eb;backdrop-filter:blur(6px);}
+    .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
+  </style>
+</head>
+
+<body>
+<header class="topbar bg-blur">
+  <div class="container-mx px-4 py-3 flex items-center justify-between">
+      <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-9 w-auto" onerror="this.style.display='none'">
+      <span class="text-xs text-center border rounded-full px-2 py-1">Usuario: <strong id="userInfo"></strong></span>
+
+    <button id="nav-toggle" class="md:hidden inline-flex items-center gap-8 px-3 py-2 rounded-lg border text-sm text-gray-700" aria-expanded="false" aria-controls="nav-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      Menú
+    </button>
+
+    <nav id="nav-menu" class="hidden flex-col bg-blur gap-8 shadow-md rounded-lg p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
+      <a href="index.html" class="hover:text-gray-900  px-4 py-2">Inicio</a>
+      <a href="reservar.html" class="hover:text-gray-900  px-4 py-2">Reservar</a>
+      <a href="macheo.html" class="hover:text-gray-900  px-4 py-2">Macheo</a>
+      <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline  px-4 py-2">Salir</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container-mx px-4 py-16 text-center">
+  <h2 class="text-3xl font-semibold text-white text-center mb-2">Mis Reservas</h2>
+  <h3 id="clienteMail" class="text-md text-white mb-8 font-medium"></h3>
+
+  <section class="max-w-3xl mx-auto space-y-6">
+    <article class="card p-6 flex items-center justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-900">Cancha 1 – Hoy 18:00</h3>
+        <p class="text-sm text-gray-600">Estado: Confirmada</p>
+      </div>
+    </article>
+
+    <article class="card p-6 flex items-center justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-900">Cancha 3 – Mañana 19:00</h3>
+        <p class="text-sm text-gray-600">Estado: Confirmada</p>
+      </div>
+    </article>
+
+    <article class="card p-6 flex items-center justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-900">Cancha 2 – Vie 20:00</h3>
+        <p class="text-sm text-gray-600">Estado: Pendiente</p>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="py-6">
+  <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
+    <span style="color:#d32f2f;  background:#ffffffaa; padding:4px 12px; border-radius:6px;">
+      © RedSoft 2025. Todos los derechos reservados.
+    </span>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  btn.addEventListener('click', () => {
+    const isHidden = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(isHidden));
+  });
+
+  // Mostrar datos del usuario en el header y debajo del título
+  document.addEventListener('DOMContentLoaded', function() {
+    const rol = localStorage.getItem('rol');
+    let email = localStorage.getItem('bookingUserEmail') || '';
+
+    // Si no hay email guardado, usar por defecto según el rol
+    if (!email) {
+      if (rol === 'Cliente') email = 'cliente@mail.com';
+      else if (rol === 'Empleado') email = 'usuario@mail.com';
+      else if (rol === 'Administrador') email = 'admin@mail.com';
+    }
+
+    const userInfo = document.getElementById('userInfo');
+    const clienteMail = document.getElementById('clienteMail');
+
+    if (userInfo) userInfo.textContent = `${email} (${rol || 'Sin rol'})`;
+    if (clienteMail) clienteMail.textContent = `Cliente: ${email}`;
+  });
+
+  // Botón Salir
+  document.addEventListener('DOMContentLoaded', function(){
+    const logout = document.getElementById('logoutBtn');
+    if(logout){
+      logout.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem('rol');
+        localStorage.removeItem('bookingUserEmail');
+        window.location.replace('login.html');
+      });
+    }
+  });
+
+  // Muestra botón "Pagar y confirmar" para reservas pendientes
+  document.addEventListener('DOMContentLoaded', function() {
+    const articles = document.querySelectorAll('article.card');
+    articles.forEach(article => {
+      const estado = article.querySelector('p.text-sm');
+      if (estado && estado.textContent.toLowerCase().includes('pendiente')) {
+        const pagarBtn = document.createElement('a');
+        pagarBtn.href = 'pago.html';
+        pagarBtn.className = 'btn-primary ml-4';
+        pagarBtn.textContent = 'Pagar y confirmar';
+        article.appendChild(pagarBtn);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

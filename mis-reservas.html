@@ -83,28 +83,21 @@
         <h3 class="font-semibold text-gray-900">Cancha 1 – Hoy 18:00</h3>
         <p class="text-sm text-gray-600">Estado: Confirmada</p>
       </div>
-      <a class="btn-secondary" href="reservar.html">Ver</a>
     </article>
 
     <article class="card p-6 flex items-center justify-between">
       <div>
         <h3 class="font-semibold text-gray-900">Cancha 3 – Mañana 19:00</h3>
-        <p class="text-sm text-gray-600">Estado: Pendiente</p>
+        <p class="text-sm text-gray-600">Estado: Confirmada</p>
       </div>
-      <a class="btn-secondary" href="reservar.html">Ver</a>
     </article>
 
     <article class="card p-6 flex items-center justify-between">
       <div>
         <h3 class="font-semibold text-gray-900">Cancha 2 – Vie 20:00</h3>
-        <p class="text-sm text-gray-600">Estado: Confirmada</p>
+        <p class="text-sm text-gray-600">Estado: Pendiente</p>
       </div>
-      <a class="btn-secondary" href="reservar.html">Ver</a>
     </article>
-
-    <div class="flex justify-end">
-      <a class="btn-primary" href="reservar.html">Nueva reserva</a>
-    </div>
   </section>
 </main>
 
@@ -135,6 +128,20 @@
       });
     }
   });
+  // Muestra botón "Pagar y confirmar" para reservas pendientes
+  document.addEventListener('DOMContentLoaded', function() {
+    const articles = document.querySelectorAll('article.card');
+    articles.forEach(article => {
+      const estado = article.querySelector('p.text-sm');
+      if (estado && estado.textContent.toLowerCase().includes('pendiente')) {
+        const pagarBtn = document.createElement('a');
+        pagarBtn.href = 'pago.html';
+        pagarBtn.className = 'btn-primary ml-4';
+        pagarBtn.textContent = 'Pagar y confirmar';
+        article.appendChild(pagarBtn);
+      }
+    });
+  })
 </script>
 
 </body>

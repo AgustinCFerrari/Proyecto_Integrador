@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Chart.js para gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     html,body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;}
         body {
@@ -18,12 +20,54 @@
       background-attachment: fixed;
     }
     .container-mx{max-width:1200px;margin:0 auto;}
-    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
     .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
     .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
     .tag{background:#F3F4F6;color:#374151;border-radius:9999px;padding:.25rem .5rem;font-size:.75rem}
     .topbar{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid #e5e7eb}
     .bg-blur {background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem;}
+    
+    /* Estilos para la tabla */
+    .table-container {
+      overflow-x: auto;
+    }
+    .ocupacion-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .ocupacion-table th, .ocupacion-table td {
+      padding: 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .ocupacion-table th {
+      background-color: #f9fafb;
+      font-weight: 600;
+      color: #374151;
+    }
+    .ocupacion-table tr:hover {
+      background-color: #f9fafb;
+    }
+    .porcentaje-alto {
+      color: #ef4444;
+      font-weight: 600;
+    }
+    .porcentaje-medio {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+    .porcentaje-bajo {
+      color: #10b981;
+      font-weight: 600;
+    }
+    
+    /* Estilos para el gráfico */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 
@@ -54,10 +98,76 @@
   <div class="card p-6">
     <h3 class="font-semibold text-gray-900">Ocupación por franja</h3>
     <p class="text-gray-600 mt-2">L 60% · M 70% · X 75% · J 78% · V 85%</p>
+    
+    <!-- Tabla de ocupación por cancha -->
+    <div class="table-container">
+      <table class="ocupacion-table">
+        <thead>
+          <tr>
+            <th>Cancha</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+            <th>Domingo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-medium">Cancha 1</td>
+            <td><span class="porcentaje-bajo">45%</span></td>
+            <td><span class="porcentaje-medio">65%</span></td>
+            <td><span class="porcentaje-medio">70%</span></td>
+            <td><span class="porcentaje-medio">75%</span></td>
+            <td><span class="porcentaje-alto">85%</span></td>
+            <td><span class="porcentaje-alto">90%</span></td>
+            <td><span class="porcentaje-alto">95%</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium">Cancha 2</td>
+            <td><span class="porcentaje-bajo">40%</span></td>
+            <td><span class="porcentaje-medio">60%</span></td>
+            <td><span class="porcentaje-medio">65%</span></td>
+            <td><span class="porcentaje-medio">70%</span></td>
+            <td><span class="porcentaje-alto">80%</span></td>
+            <td><span class="porcentaje-alto">85%</span></td>
+            <td><span class="porcentaje-alto">90%</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium">Cancha 3</td>
+            <td><span class="porcentaje-bajo">35%</span></td>
+            <td><span class="porcentaje-medio">55%</span></td>
+            <td><span class="porcentaje-medio">60%</span></td>
+            <td><span class="porcentaje-medio">65%</span></td>
+            <td><span class="porcentaje-alto">75%</span></td>
+            <td><span class="porcentaje-alto">80%</span></td>
+            <td><span class="porcentaje-alto">85%</span></td>
+          </tr>
+          <tr>
+            <td class="font-medium">Cancha 4</td>
+            <td><span class="porcentaje-bajo">30%</span></td>
+            <td><span class="porcentaje-medio">50%</span></td>
+            <td><span class="porcentaje-medio">55%</span></td>
+            <td><span class="porcentaje-medio">60%</span></td>
+            <td><span class="porcentaje-alto">70%</span></td>
+            <td><span class="porcentaje-alto">75%</span></td>
+            <td><span class="porcentaje-alto">80%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+  
   <div class="card p-6">
     <h3 class="font-semibold text-gray-900">Ingresos por día</h3>
-    <p class="text-gray-600 mt-2">Gráfico de barras (placeholder)</p>
+    <p class="text-gray-600 mt-2">Ingresos semanales en pesos ($)</p>
+    
+    <!-- Gráfico de barras para ingresos -->
+    <div class="chart-container">
+      <canvas id="ingresosChart"></canvas>
+    </div>
   </div>
 </section>
 
@@ -78,7 +188,8 @@
     menu.classList.toggle('hidden');
     btn.setAttribute('aria-expanded', String(isHidden));
   });
-    // Botón Salir
+  
+  // Botón Salir
   document.addEventListener('DOMContentLoaded', function(){
     const logout = document.getElementById('logoutBtn');
     localStorage.removeItem('bookingUserEmail');
@@ -89,6 +200,63 @@
         window.location.replace('login.html');
       });
     }
+    
+    // Configuración del gráfico de ingresos
+    const ctx = document.getElementById('ingresosChart').getContext('2d');
+    const ingresosChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+        datasets: [{
+          label: 'Ingresos (€)',
+          data: [320, 450, 520, 580, 720, 850, 920],
+          backgroundColor: [
+            'rgba(46, 125, 50, 0.7)',
+            'rgba(46, 125, 50, 0.7)',
+            'rgba(46, 125, 50, 0.7)',
+            'rgba(46, 125, 50, 0.7)',
+            'rgba(46, 125, 50, 0.7)',
+            'rgba(46, 125, 50, 0.7)',
+            'rgba(46, 125, 50, 0.7)'
+          ],
+          borderColor: [
+            'rgb(46, 125, 50)',
+            'rgb(46, 125, 50)',
+            'rgb(46, 125, 50)',
+            'rgb(46, 125, 50)',
+            'rgb(46, 125, 50)',
+            'rgb(46, 125, 50)',
+            'rgb(46, 125, 50)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Euros (€)'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `Ingresos: €${context.parsed.y}`;
+              }
+            }
+          }
+        }
+      }
+    });
   });
 </script>
 

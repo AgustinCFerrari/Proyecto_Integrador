@@ -18,7 +18,7 @@
     background-attachment: fixed;
     }
     .container-mx{max-width:1200px;margin:0 auto;}
-    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+    .card{border:1px solid #e5e7eb;border-radius:1rem;background:#ffffffcc;box-shadow:0 1px 2px rgba(0,0,0,.03);}
     .btn-primary{background:#2E7D32;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
     .btn-secondary{background:#1976D2;color:#fff;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;display:inline-block}
     .tag{background:#F3F4F6;color:#374151;border-radius:9999px;padding:.25rem .5rem;font-size:.75rem}
@@ -49,11 +49,13 @@
 
 <main class="container-mx px-4 py-16">
 <h2 class="text-3xl font-semibold text-gray-900 text-center block mb-6">Reservas</h2>
-<section class="card p-6">
+<!-- ===== Tabla extendida con más datos ficticios ===== -->
+<section class="card p-6 mt-6">
   <div class="flex items-center justify-between">
-    <h3 class="font-semibold text-gray-900">Reservas</h3>
+    <h3 class="font-semibold text-gray-900">Reservas (semana vigente)</h3>
     <a class="btn-primary" href="reservar.html">Nueva reserva</a>
   </div>
+
   <div class="mt-4 overflow-auto">
     <table class="min-w-full text-sm">
       <thead class="text-left text-gray-500">
@@ -66,16 +68,63 @@
         </tr>
       </thead>
       <tbody class="text-gray-800">
+        <!-- Lunes / Hoy -->
         <tr class="border-t">
-          <td class="py-2 pr-4">Hoy</td><td class="py-2 pr-4">18:00</td><td class="py-2 pr-4">1</td><td class="py-2 pr-4">M. Torres</td><td class="py-2">Confirmada</td>
+          <td class="py-2 pr-4">Hoy</td><td class="py-2 pr-4">17:00</td><td class="py-2 pr-4">3</td><td class="py-2 pr-4">L. Gómez</td><td class="py-2">Pendiente</td>
         </tr>
         <tr class="border-t">
-          <td class="py-2 pr-4">Hoy</td><td class="py-2 pr-4">19:00</td><td class="py-2 pr-4">2</td><td class="py-2 pr-4">J. Perez</td><td class="py-2">Pendiente</td>
+          <td class="py-2 pr-4">Hoy</td><td class="py-2 pr-4">20:00</td><td class="py-2 pr-4">4</td><td class="py-2 pr-4">S. Rojas</td><td class="py-2">Confirmada</td>
+        </tr>
+        <!-- Martes / Mañana -->
+        <tr class="border-t">
+          <td class="py-2 pr-4">Mañana</td><td class="py-2 pr-4">09:00</td><td class="py-2 pr-4">1</td><td class="py-2 pr-4">P. Álvarez</td><td class="py-2">Confirmada</td>
+        </tr>
+        <tr class="border-t">
+          <td class="py-2 pr-4">Mañana</td><td class="py-2 pr-4">10:30</td><td class="py-2 pr-4">2</td><td class="py-2 pr-4">R. Sosa</td><td class="py-2">Cancelada</td>
+        </tr>
+        <tr class="border-t">
+          <td class="py-2 pr-4">Mañana</td><td class="py-2 pr-4">18:30</td><td class="py-2 pr-4">3</td><td class="py-2 pr-4">V. Ruiz</td><td class="py-2">Pendiente</td>
+        </tr>
+        <!-- Miércoles -->
+        <tr class="border-t">
+          <td class="py-2 pr-4">Mié</td><td class="py-2 pr-4">08:00</td><td class="py-2 pr-4">2</td><td class="py-2 pr-4">C. Medina</td><td class="py-2">Confirmada</td>
+        </tr>
+        <tr class="border-t">
+          <td class="py-2 pr-4">Mié</td><td class="py-2 pr-4">19:00</td><td class="py-2 pr-4">4</td><td class="py-2 pr-4">E. Castro</td><td class="py-2">Pendiente</td>
+        </tr>
+        <!-- Jueves -->
+        <tr class="border-t">
+          <td class="py-2 pr-4">Jue</td><td class="py-2 pr-4">11:00</td><td class="py-2 pr-4">1</td><td class="py-2 pr-4">M. Duarte</td><td class="py-2">Confirmada</td>
+        </tr>
+        <tr class="border-t">
+          <td class="py-2 pr-4">Jue</td><td class="py-2 pr-4">20:30</td><td class="py-2 pr-4">3</td><td class="py-2 pr-4">T. Benítez</td><td class="py-2">Pendiente</td>
+        </tr>
+        <!-- Viernes -->
+        <tr class="border-t">
+          <td class="py-2 pr-4">Vie</td><td class="py-2 pr-4">18:00</td><td class="py-2 pr-4">2</td><td class="py-2 pr-4">N. Herrera</td><td class="py-2">Confirmada</td>
+        </tr>
+        <tr class="border-t">
+          <td class="py-2 pr-4">Vie</td><td class="py-2 pr-4">19:30</td><td class="py-2 pr-4">1</td><td class="py-2 pr-4">A. Romero</td><td class="py-2">Pendiente</td>
+        </tr>
+        <!-- Sábado -->
+        <tr class="border-t">
+          <td class="py-2 pr-4">Sáb</td><td class="py-2 pr-4">10:00</td><td class="py-2 pr-4">4</td><td class="py-2 pr-4">D. Ibáñez</td><td class="py-2">Confirmada</td>
+        </tr>
+        <tr class="border-t">
+          <td class="py-2 pr-4">Sáb</td><td class="py-2 pr-4">12:00</td><td class="py-2 pr-4">3</td><td class="py-2 pr-4">S. Villalba</td><td class="py-2">Pendiente</td>
+        </tr>
+        <!-- Domingo -->
+        <tr class="border-t">
+          <td class="py-2 pr-4">Dom</td><td class="py-2 pr-4">09:30</td><td class="py-2 pr-4">1</td><td class="py-2 pr-4">J. Molina</td><td class="py-2">Confirmada</td>
+        </tr>
+        <tr class="border-t">
+          <td class="py-2 pr-4">Dom</td><td class="py-2 pr-4">18:00</td><td class="py-2 pr-4">2</td><td class="py-2 pr-4">F. Cabrera</td><td class="py-2">Pendiente</td>
         </tr>
       </tbody>
     </table>
   </div>
 </section>
+
 
 </main>
 <footer class="footer">

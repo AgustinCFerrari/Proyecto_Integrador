@@ -70,6 +70,7 @@
     <nav id="nav-menu" class="hidden flex-col bg-blur gap-8 shadow-md rounded-lg p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
       <a href="admin-reservas.html" class="hover:text-gray-900  px-4 py-2">Reservas</a>
       <a href="macheo.html" class="hover:text-gray-900  px-4 py-2">Macheo</a>
+      <a href="admin-usuarios.html" class="hover:text-gray-900 px-4 py-2">Usuarios</a>
       <a href="admin-dashboard.html" class="hover:text-gray-900  px-4 py-2">Panel de control</a>
       <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline  px-4 py-2">Salir</a>
     </nav>
@@ -83,13 +84,34 @@
       <h3 class="font-semibold text-gray-900">Calendario semanal (4 canchas)</h3>
       <a class="btn-primary" href="reservar.html">Nueva reserva</a>
     </div>
+<div class="mt-8">
+  <h4 class="font-semibold text-gray-900 mb-3">Ocupación semanal (horas reservadas / 12 h disponibles)</h4>
+  <div class="overflow-x-auto">
+    <table class="min-w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="p-3 text-left w-36">Cancha</th>
+          <th class="p-3 text-center"><span id="day0">Lun</span></th>
+          <th class="p-3 text-center"><span id="day1">Mar</span></th>
+          <th class="p-3 text-center"><span id="day2">Mié</span></th>
+          <th class="p-3 text-center"><span id="day3">Jue</span></th>
+          <th class="p-3 text-center"><span id="day4">Vie</span></th>
+          <th class="p-3 text-center"><span id="day5">Sáb</span></th>
+          <th class="p-3 text-center"><span id="day6">Dom</span></th>
+        </tr>
+      </thead>
+      <tbody id="tabla-ocupacion" class="divide-y divide-gray-200 bg-white">
+        <!-- Filas autogeneradas por JS -->
+      </tbody>
+    </table>
+  </div>
 
-    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="card p-4 bg-gray-50">Cancha 1</div>
-      <div class="card p-4 bg-gray-50">Cancha 2</div>
-      <div class="card p-4 bg-gray-50">Cancha 3</div>
-      <div class="card p-4 bg-gray-50">Cancha 4</div>
-    </div>
+  <div class="flex items-center gap-3 mt-3 text-xs text-gray-600">
+    <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-green-200 border border-green-400"></span> &lt; 50%</span>
+    <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-yellow-200 border border-yellow-400"></span> 50–80%</span>
+    <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-red-200 border border-red-400"></span> &gt; 80%</span>
+  </div>
+</div>
   </section>
 </main>
 
@@ -121,6 +143,76 @@
       });
     }
   });
+
+  // --------- Semana vigente (Lun..Dom) con fechas ----------
+  (function() {
+    const now = new Date();
+    // Normalizamos a la zona local del navegador (sirve para AR)
+    const day = now.getDay(); // 0=Dom .. 6=Sab
+    // Queremos Lunes como inicio: calculemos cuántos días restar
+    const diffToMonday = ((day + 6) % 7); // Lun=0, Mar=1, ... Dom=6
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - diffToMonday);
+
+    const dayNames = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i);
+      const dd = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const lbl = `${dayNames[i]} ${dd}/${mm}`;
+      const el = document.getElementById('day' + i);
+      if (el) el.textContent = lbl;
+    }
+  })();
+
+  // --------- Datos ficticios de ocupación (reservadas sobre 12 hs/día) ----------
+  // 12 hs disponibles por día (ej: 08:00–20:00)
+  const DISPONIBLES_POR_DIA = 12;
+
+  // Cada fila = una cancha; cada número = horas reservadas para el día (Lun..Dom)
+  const ocupacion = [
+    { cancha: 'Cancha 1', horas: [6, 8, 9, 7, 10, 11, 5] },
+    { cancha: 'Cancha 2', horas: [4, 5, 6, 8, 9, 8, 4] },
+    { cancha: 'Cancha 3', horas: [7, 9, 10, 9, 11, 12, 6] },
+    { cancha: 'Cancha 4', horas: [3, 4, 5, 6, 8, 7, 3] }
+  ];
+
+  // --------- Render de la tabla ----------
+  (function() {
+    const tbody = document.getElementById('tabla-ocupacion');
+    if (!tbody) return;
+
+    ocupacion.forEach(row => {
+      const tr = document.createElement('tr');
+
+      const th = document.createElement('th');
+      th.className = 'p-3 text-left font-medium text-gray-900';
+      th.textContent = row.cancha;
+      tr.appendChild(th);
+
+      row.horas.forEach(h => {
+        const pct = Math.round((h / DISPONIBLES_POR_DIA) * 100);
+
+        // Color por nivel
+        let color = 'bg-green-200 border-green-400 text-green-900';
+        if (pct >= 80) color = 'bg-red-200 border-red-400 text-red-900';
+        else if (pct >= 50) color = 'bg-yellow-200 border-yellow-400 text-yellow-900';
+
+        const td = document.createElement('td');
+        td.className = 'p-2 text-center align-middle';
+
+        // Badges: "x/12h (yy%)"
+        const badge = document.createElement('span');
+        badge.className = `inline-block px-2 py-1 rounded border text-xs font-medium ${color}`;
+        badge.textContent = `${h}/${DISPONIBLES_POR_DIA}h (${pct}%)`;
+
+        td.appendChild(badge);
+        tr.appendChild(td);
+      });
+
+      tbody.appendChild(tr);
+    });
+  })();
+
 </script>
 
 </body>

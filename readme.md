@@ -1,6 +1,6 @@
 # 🎾 Tenis Master – Sistema de Gestión de Reservas
 
-## 📘 Descripción general
+## Descripción general
 
 **Tenis Master** es una aplicación web desarrollada por **Redsoft** como parte del Proyecto Integrador (Comisión D).  
 El sistema permite la **gestión integral de reservas de canchas de tenis**, el **matcheo de jugadores**, el **control administrativo** y la **gestión de clientes**, con diferentes roles de acceso (Administrador, Empleado y Cliente).
@@ -11,7 +11,7 @@ La interfaz está diseñada para ser **totalmente responsiva**, permitiendo su u
 
 ---
 
-## 👥 Integrantes del equipo Redsoft
+## Integrantes del equipo Redsoft
 
 - **Diego Arias**  
 - **Agustín Ferrari**  
@@ -19,7 +19,7 @@ La interfaz está diseñada para ser **totalmente responsiva**, permitiendo su u
 
 ---
 
-## 🌐 Enlaces del proyecto
+## Enlaces del proyecto
 
 - **Repositorio GitHub:**  
   [https://github.com/AgustinCFerrari/Proyecto_Integrador](https://github.com/AgustinCFerrari/Proyecto_Integrador)
@@ -29,7 +29,7 @@ La interfaz está diseñada para ser **totalmente responsiva**, permitiendo su u
 
 ---
 
-## 🔐 Roles y credenciales de acceso
+## Roles y credenciales de acceso
 
 | Rol | Correo electrónico | Contraseña |
 |-----|--------------------|-------------|
@@ -41,24 +41,24 @@ La interfaz está diseñada para ser **totalmente responsiva**, permitiendo su u
 
 ---
 
-## 🧭 Flujo principal del sistema
+## Flujo principal del sistema
 
-### 1️⃣ Inicio y autenticación
+### Inicio y autenticación
 - Si el usuario no está logueado, el sistema redirige automáticamente de `index.html` a `login.html`.
 - Dependiendo del rol, se accede a distintas vistas y funcionalidades.
 
-### 2️⃣ Registro de nuevos clientes
+### Registro de nuevos clientes
 - En “Crear cuenta” se completa un formulario con los datos personales.  
 - Los empleados o administradores también pueden registrar clientes desde el **CRUD de Clientes**.
 
-### 3️⃣ Panel de inicio (Cliente)
+### Panel de inicio (Cliente)
 El cliente puede:
 - Reservar una cancha.  
-- Realizar matcheo con otros jugadores de su nivel.  
+- Realizar macheo con otros jugadores de su nivel.  
 - Consultar sus reservas.  
 - Cerrar sesión mediante el botón “Salir”.
 
-### 4️⃣ Reservas
+### Reservas
 Desde la opción **Reservar**, el usuario ingresa:
 - Fecha.  
 - Hora de inicio y finalización.  
@@ -68,7 +68,7 @@ Tras completar la información:
 - Se accede a **pago.html**, donde se confirman los datos y se selecciona el método de pago.  
 - Las reservas no pagadas aparecen como **pendientes** en “Mis reservas”.
 
-### 5️⃣ Macheo de jugadores
+### Macheo de jugadores
 El cliente puede elegir su nivel y disponibilidad.  
 El sistema sugiere:
 - Rival compatible.  
@@ -77,14 +77,14 @@ El sistema sugiere:
 
 ---
 
-## 🧑‍💼 Funcionalidades por rol
+## Funcionalidades por rol
 
-### 🟩 Rol Empleado
+### Rol Empleado
 - Tiene un panel similar al cliente, pero con acceso adicional a:
   - **Gestión de Clientes (CRUD):** alta, baja, búsqueda y modificación.  
 - Puede registrar reservas o clientes de manera presencial o telefónica.  
 
-### 🟥 Rol Administrador
+### Rol Administrador
 - Accede al **Panel de control**, con módulos específicos:
   - **Dashboard:** resumen diario de movimientos.  
   - **Calendario:** visualización de ocupación semanal por cancha.  
@@ -95,7 +95,7 @@ El sistema sugiere:
 
 ---
 
-## 💻 Estructura del Front
+## Estructura del Front
 
 - **index.html** – pantalla principal.  
 - **login.html** – inicio de sesión.  
@@ -109,7 +109,7 @@ El sistema sugiere:
 
 ---
 
-## 🖥️ Capturas de pantalla (resumen visual)
+## Capturas de pantalla (resumen visual)
 
 *(Las imágenes se encuentran documentadas en el archivo “Capturas de pantalla.docx”)*  
 - Login y registro de usuarios.  
@@ -121,7 +121,7 @@ El sistema sugiere:
 
 ---
 
-## ⚙️ Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - **HTML5**, **CSS3**, **JavaScript**  
 - **TailwindCSS** (maquetado y responsive design)  
@@ -141,5 +141,5 @@ El sistema sugiere:
 
 ---
 
-## 🧾 Licencia
-© Redsoft – 2025. Todos los derechos reservados.
+## Licencia
+© Redsoft – 2025.

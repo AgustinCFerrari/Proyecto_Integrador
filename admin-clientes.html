@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenis Master – Clientes</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-image: url('fondo2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    .container-mx { max-width: 1200px; margin: 0 auto; }
+    .card { border: 1px solid #e5e7eb; border-radius: 1rem; background: #ffffffcc; box-shadow: 0 1px 2px rgba(0,0,0,.03); }
+    .btn-primary, .btn-danger {
+      min-width: 7.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: .75rem;
+      font-weight: 600;
+      padding: .6rem 1rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    .btn-primary { background: #1976D2; }
+    .btn-danger { background: #b71c1c; }
+    .topbar { position: sticky; top: 0; z-index: 40; background: #ffffffcc; border-bottom: 1px solid #e5e7eb; backdrop-filter: blur(6px); }
+    .bg-blur { background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 0.5rem; }
+
+    /* ===== Modal Toggle ===== */
+    #modal-toggle { display: none; }
+    #modal-toggle:checked + .modal-overlay { display: flex; }
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .modal {
+      background: #ffffffcc;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="container-mx px-4 py-3 flex items-center justify-between">
+    <img src="logo-tenis-master.svg" alt="Tenis Master" class="h-9 w-auto" onerror="this.style.display='none'">
+    <button id="nav-toggle" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-gray-700" aria-expanded="false" aria-controls="nav-menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      Menú
+    </button>
+
+    <nav id="nav-menu" class="hidden flex-col bg-blur gap-8 shadow-md rounded-lg p-4 absolute top-16 left-4 right-4 md:static md:flex md:flex-row md:gap-6 md:bg-transparent md:shadow-none md:p-0">
+      <a href="index.html" class="hover:text-gray-900  px-4 py-2">Inicio</a>
+      <a href="admin-dashboard.html" class="hover:text-gray-900  px-4 py-2">Panel de control</a>
+      <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline  px-4 py-2">Salir</a>
+    </nav>
+  </div>
+</header>
+<main class="container-mx px-4 py-16">
+  <h2 class="text-3xl font-semibold text-white text-center mb-6">Gestión de clientes</h2>
+
+  <section class="card p-6 space-y-4">
+    <div class="flex justify-between flex-wrap items-center">
+      <label for="modal-toggle" class="btn-primary cursor-pointer w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">
+        Nuevo Cliente
+      </label>
+      <input type="search" class="border rounded-lg px-4 py-4 flex-1 md:max-w-xs" placeholder="Buscar cliente...">
+    </div>
+
+    <div class="overflow-x-auto mt-4">
+      <table class="min-w-full text-sm md:text-base">
+        <thead class="text-center text-gray-600">
+          <tr> 
+            <th class="py-2 pr-4">Apellido</th>
+            <th class="py-2 pr-4">Nombre</th>
+            <th class="py-2 pr-4">DNI</th>
+            <th class="py-2 pr-4">Celular</th>
+            <th class="py-2 pr-4">Email</th>
+            <th class="py-2 pr-4">Nivel</th>
+            <th class="py-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-900">
+          <tr class="border-t">
+            <td class="py-2 pr-4">Gómez</td>
+            <td class="py-2 pr-4">Lucía</td>
+            <td class="py-2 pr-4">40123456</td>
+            <td class="py-2 pr-4">+54 9 11 5555-1111</td>
+            <td class="py-2 pr-4">lucia.gomez@mail.com</td>
+            <td class="py-2 pr-4">Intermedio</td>
+            <td class="py-2 flex gap-2">
+              <label for="modal-toggle" class="btn-primary cursor-pointer w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Editar</label>
+              <button class="btn-danger w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Eliminar</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="py-2 pr-4">Rojas</td>
+            <td class="py-2 pr-4">Santiago</td>
+            <td class="py-2 pr-4">38999888</td>
+            <td class="py-2 pr-4">+54 9 11 5555-2222</td>
+            <td class="py-2 pr-4">s.rojas@mail.com</td>
+            <td class="py-2 pr-4">Inicial</td>
+            <td class="py-2 flex gap-2">
+              <label for="modal-toggle" class="btn-primary cursor-pointer w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Editar</label>
+              <button class="btn-danger w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Eliminar</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="py-2 pr-4">Rossi</td>
+            <td class="py-2 pr-4">Andrea</td>
+            <td class="py-2 pr-4">32000777</td>
+            <td class="py-2 pr-4">+54 9 11 5533-8822</td>
+            <td class="py-2 pr-4">andrea_rossi@mail.com</td>
+            <td class="py-2 pr-4">Avanzado</td>
+            <td class="py-2 flex gap-2">
+              <label for="modal-toggle" class="btn-primary cursor-pointer w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Editar</label>
+              <button class="btn-danger w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Eliminar</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="py-2 pr-4">Traverso</td>
+            <td class="py-2 pr-4">Sofia</td>
+            <td class="py-2 pr-4">35111777 </td>
+            <td class="py-2 pr-4">+54 9 11 4215-3366</td>
+            <td class="py-2 pr-4">sofitraverso@mail.com</td>
+            <td class="py-2 pr-4">Inicial</td>
+            <td class="py-2 flex gap-2">
+              <label for="modal-toggle" class="btn-primary cursor-pointer w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Editar</label>
+              <button class="btn-danger w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Eliminar</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="py-2 pr-4">Aguirre</td>
+            <td class="py-2 pr-4">Julián</td>
+            <td class="py-2 pr-4">38444000</td>
+            <td class="py-2 pr-4">+54 9 11 5742-3523</td>
+            <td class="py-2 pr-4">julian.aguirre@mail.com</td>
+            <td class="py-2 pr-4">Intermedio</td>
+            <td class="py-2 flex gap-2">
+              <label for="modal-toggle" class="btn-primary cursor-pointer w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Editar</label>
+              <button class="btn-danger w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- Checkbox que controla el modal -->
+<input type="checkbox" id="modal-toggle">
+
+<!-- Modal maquetado -->
+<div class="modal-overlay bg-blur p-4">
+  <div class="modal">
+    <h3 class="text-lg font-semibold text-gray-900 mb-3">Nuevo cliente</h3>
+    <form class="space-y-4">
+      <div class="grid md:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="text-sm text-gray-700">Apellido</span>
+          <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1" placeholder="Ej: Gómez">
+        </label>
+        <label class="block">
+          <span class="text-sm text-gray-700">Nombre</span>
+          <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1" placeholder="Ej: Lucía">
+        </label>
+        <label class="block">
+          <span class="text-sm text-gray-700">DNI</span>
+          <input type="number" class="w-full border rounded-lg px-3 py-2 mt-1" placeholder="Ej: 40123456">
+        </label>
+        <label class="block">
+          <span class="text-sm text-gray-700">Celular</span>
+          <input type="tel" class="w-full border rounded-lg px-3 py-2 mt-1" placeholder="+54 9 11 ...">
+        </label>
+        <label class="block md:col-span-2">
+          <span class="text-sm text-gray-700">Email</span>
+          <input type="email" class="w-full border rounded-lg px-3 py-2 mt-1" placeholder="cliente@mail.com">
+        </label>
+        <label class="block md:col-span-2">
+          <span class="text-sm text-gray-700">Nivel</span>
+          <select class="w-full border rounded-lg px-3 py-2 mt-1">
+            <option>Inicial</option>
+            <option>Intermedio</option>
+            <option>Avanzado</option>
+          </select>
+        </label>
+      </div>
+      <div class="flex justify-end gap-3 pt-3">
+        <label for="modal-toggle" class="btn-danger cursor-pointer">Cancelar</label>
+        <button type="submit" class="btn-primary w-full sm:w-auto sm:px-6 sm:py-2.5 px-4 py-2 text-sm sm:text-base">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="py-6 text-center text-sm">
+    <div class="container-mx px-4 py-6 text-sm text-gray-700 text-center">
+    <span style="color:#d32f2f; background: #ffffffaa; padding:4px 12px; border-radius:6px;">
+      © RedSoft 2025. Todos los derechos reservados.
+    </span>
+  </div>
+</footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // --- Toggle del menú ---
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        const isHidden = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', String(isHidden));
+      });
+    }
+
+    // --- Mostrar solo Inicio o Panel de control según el rol ---
+    const rol = localStorage.getItem('rol');
+    const links = menu.querySelectorAll('a[href]');
+    const linkInicio = menu.querySelector('a[href="index.html"]');
+    const linkPanel  = menu.querySelector('a[href="admin-dashboard.html"]');
+
+    if (rol === 'Administrador') {
+      if (linkInicio) linkInicio.style.display = 'none';
+      if (linkPanel)  linkPanel.style.display  = 'inline-block';
+    } else {
+      if (linkPanel)  linkPanel.style.display  = 'none';
+      if (linkInicio) linkInicio.style.display = 'inline-block';
+    }
+
+    // --- Botón Salir ---
+    const logout = document.getElementById('logoutBtn');
+    if (logout) {
+      logout.addEventListener('click', function (e) {
+        e.preventDefault();
+        localStorage.removeItem('rol');
+        localStorage.removeItem('bookingUserEmail');
+        window.location.replace('login.html');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

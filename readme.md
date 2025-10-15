@@ -130,7 +130,7 @@ El sistema sugiere:
 
 ---
 
-## 🚀 Cómo ejecutar el proyecto
+## Cómo ejecutar el proyecto
 
 1. Clonar el repositorio:
    ```bash

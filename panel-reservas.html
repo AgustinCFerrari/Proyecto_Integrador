@@ -49,7 +49,7 @@
 </header>
 
 <main class="container-mx px-4 py-16 text-center">
-  <h2 class="text-3xl font-semibold text-white text-center mb-2">Mis Reservas</h2>
+  <h2 class="text-3xl font-semibold text-white text-center mb-2">Panel de Reservas</h2>
   <h3 id="clienteMail" class="text-md text-white mb-8 font-medium"></h3>
 
   <section class="max-w-3xl mx-auto space-y-6">
@@ -85,16 +85,10 @@
 </footer>
 
 <script>
-  const btn = document.getElementById('nav-toggle');
-  const menu = document.getElementById('nav-menu');
-  btn.addEventListener('click', () => {
-    const isHidden = menu.classList.contains('hidden');
-    menu.classList.toggle('hidden');
-    btn.setAttribute('aria-expanded', String(isHidden));
-  });
-
-  // Mostrar datos del usuario en el header y debajo del título
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    const logout = document.getElementById('logoutBtn');
     const rol = localStorage.getItem('rol');
     let email = localStorage.getItem('bookingUserEmail') || '';
 
@@ -105,28 +99,44 @@
       else if (rol === 'Administrador') email = 'admin@mail.com';
     }
 
+    // Mostrar info de usuario
     const userInfo = document.getElementById('userInfo');
     const clienteMail = document.getElementById('clienteMail');
-
     if (userInfo) userInfo.textContent = `${email} (${rol || 'Sin rol'})`;
     if (clienteMail) clienteMail.textContent = `Cliente: ${email}`;
-  });
 
-  // Botón Salir
-  document.addEventListener('DOMContentLoaded', function(){
-    const logout = document.getElementById('logoutBtn');
-    if(logout){
-      logout.addEventListener('click', function(e){
-        e.preventDefault();
-        localStorage.removeItem('rol');
-        localStorage.removeItem('bookingUserEmail');
-        window.location.replace('login.html');
+    // Alternar visibilidad del menú responsive
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        const isHidden = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', String(isHidden));
       });
     }
-  });
 
-  // Muestra botón "Pagar y confirmar" para reservas pendientes
-  document.addEventListener('DOMContentLoaded', function() {
+    // Si el usuario es Administrador, mostrar solo Panel de control y Salir
+    if (rol === 'Administrador') {
+      menu.innerHTML = `
+        <a href="admin-dashboard.html" class="hover:text-gray-900 px-4 py-2">Panel de control</a>
+        <a href="#" id="logoutBtn" class="text-red-700 font-medium hover:underline px-4 py-2">Salir</a>
+      `;
+    }
+
+    // Reasignar evento Salir (por si el HTML fue regenerado)
+    const assignLogout = () => {
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          localStorage.removeItem('rol');
+          localStorage.removeItem('bookingUserEmail');
+          window.location.replace('login.html');
+        });
+      }
+    };
+    assignLogout();
+
+    // Agregar botón "Pagar y confirmar" para reservas pendientes
     const articles = document.querySelectorAll('article.card');
     articles.forEach(article => {
       const estado = article.querySelector('p.text-sm');
@@ -140,6 +150,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>
